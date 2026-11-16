@@ -10,7 +10,7 @@ services:
     # For always-on, change to `plan: starter` (paid) — migrations can then move to preDeployCommand.
     plan: free
     # Free plans have no pre-deploy step, so database migrations run during the build.
-    buildCommand: npm ci && npm run build:api && npm run db:deploy
+    buildCommand: npm ci --include=dev && npm run build:api && npm run db:deploy
     startCommand: npm start --workspace apps/api
     healthCheckPath: /api/health
     envVars:
@@ -42,7 +42,7 @@ services:
   - type: web
     name: rry-erp-web
     runtime: static
-    buildCommand: npm ci && npm run build:web
+    buildCommand: npm ci --include=dev && npm run build:web
     staticPublishPath: apps/web/dist
     routes:
       - type: rewrite
