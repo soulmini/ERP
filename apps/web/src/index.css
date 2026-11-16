@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+
+/*
+ * Notion-inspired theme: white canvas, warm near-black ink, warm-gray sidebar,
+ * hairline borders, black primary buttons, soft pastel tags.
+ */
+@theme {
+  --font-sans: 'Inter', 'Noto Sans Devanagari', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-canvas: #ffffff;
+  --color-sidebar: #f7f7f5;
+  --color-ink: #37352f;
+  --color-ink-strong: #191919;
+  --color-muted: #787774;
+  --color-faint: #a5a29a;
+  --color-line: #e9e9e7;
+  --color-hover: #efefed;
+  --color-active: #e8e8e5;
+
+  /* pastel tags: bg / text */
+  --color-tag-gray: #f1f1ef;
+  --color-tag-gray-ink: #787774;
+  --color-tag-brown: #f4eeee;
+  --color-tag-brown-ink: #9f6b53;
+  --color-tag-orange: #fbecdd;
+  --color-tag-orange-ink: #d9730d;
+  --color-tag-yellow: #fbf3db;
+  --color-tag-yellow-ink: #cb912f;
+  --color-tag-green: #edf3ec;
+  --color-tag-green-ink: #448361;
+  --color-tag-blue: #e7f3f8;
+  --color-tag-blue-ink: #337ea9;
+  --color-tag-purple: #f6f3f9;
+  --color-tag-purple-ink: #9065b0;
+  --color-tag-pink: #faf1f5;
+  --color-tag-pink-ink: #c14c8a;
+  --color-tag-red: #fdebec;
+  --color-tag-red-ink: #d44c47;
+
+  --shadow-pop: 0 0 0 1px rgb(15 15 15 / 0.05), 0 3px 6px rgb(15 15 15 / 0.1), 0 9px 24px rgb(15 15 15 / 0.2);
+  --shadow-card: 0 1px 2px rgb(15 15 15 / 0.04);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-size: 14.5px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection {
+    background: rgb(35 131 226 / 0.2);
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(35 131 226 / 0.55);
+    outline-offset: 1px;
+    border-radius: 4px;
+  }
+}
+
+/* Printing (receipts, certificates, marksheets): hide app chrome, keep colours exact. */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  html,
+  body,
+  #root {
+    height: auto !important;
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page-break {
+    break-after: page;
+  }
+}
+
+/* safe-area padding for phones with notches (Capacitor) */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
