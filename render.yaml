@@ -6,9 +6,11 @@ services:
     name: rry-erp-api
     runtime: node
     region: singapore
-    plan: starter
-    buildCommand: npm ci && npm run build:api
-    preDeployCommand: npm run db:deploy
+    # Free plan: sleeps after ~15 min idle (first request then takes ~1 min).
+    # For always-on, change to `plan: starter` (paid) — migrations can then move to preDeployCommand.
+    plan: free
+    # Free plans have no pre-deploy step, so database migrations run during the build.
+    buildCommand: npm ci && npm run build:api && npm run db:deploy
     startCommand: npm start --workspace apps/api
     healthCheckPath: /api/health
     envVars:
